@@ -1,6 +1,6 @@
 package model;
 
-public class Mesomorfo implements Biotipo{
+public class BiotipoMesomorfo implements Biotipo{
 
 //equilibrado
     public double getCarbo(){
