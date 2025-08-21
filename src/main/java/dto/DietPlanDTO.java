@@ -4,16 +4,16 @@
 package dto; //criado para lidar com a entrada e saida de dados do usuario
 
 public class DietPlanDTO {
-    public double caloriasTotais;
-    public double caboidratoGramas;
-    public double proteinasGramas;
-    public double gordurasGramas;
+    private double caloriasTotais;
+    private double carboidratoGramas;
+    private double proteinasGramas;
+    private double gordurasGramas;
 
 
     //CONSTRUTOR
     public DietPlanDTO(double caloriasTotais, double caboidratoGramas, double proteinasGramas   , double gordurasgramas) {
         this.caloriasTotais = caloriasTotais;
-        this.caboidratoGramas = caboidratoGramas;
+        this.carboidratoGramas = caboidratoGramas;
         this.proteinasGramas = proteinasGramas;
         this.gordurasGramas = gordurasgramas;
     }
@@ -25,7 +25,7 @@ public class DietPlanDTO {
 
 
     public double getCaboidratoGramas() {
-        return caboidratoGramas;
+        return carboidratoGramas;
     }
 
 
@@ -45,7 +45,7 @@ public class DietPlanDTO {
 
 
     public void setCaboidratoGramas(double caboidratoGramas) {
-        this.caboidratoGramas = caboidratoGramas;
+        this.carboidratoGramas = caboidratoGramas;
     }
 
 

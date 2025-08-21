@@ -7,4 +7,4 @@ import org.springframework.stereotype.Repository; //marca a interface como um co
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, String> {}
-//UsuarioRepository herda todos os metodos de JpaRepository, Usuario vai ser a classe quie o repositorio ira gerenciar e String o tipo da chave primaria(ID)
+//UsuarioRepository herda todos os metodos de JpaRepository, Usuario vai ser a classe que o repositorio ira gerenciar e String o tipo da chave primaria(ID)
