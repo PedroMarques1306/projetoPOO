@@ -1,16 +1,16 @@
 package model;
 
-import jakarta.persistence.*;
-import lombok.Data;             //esse lombok é usado pra fazer os metodos get e sets
+import jakarta.persistence.*;   //JPA importado para lidar com o banco de dados
+import lombok.Data;             //esse lombok é usado pra fazer os metodos get e sets(AÇUCAR SINTATICO QUE É QUASE UM HACK SINTATICO)
 import model.enums.*;
 
-@Entity //tranforma a classe numa entidade JPA
-@Table(name = "usuarios")
+@Entity //tranforma a classe numa entidade JPA ou seja, a classe passa a representar uma tabela de banco de dados
+@Table(name = "usuarios") //pra organizar 
 @Data // lombok pra criar os metodos e contrutores
 
 public class Usuario {
     //aqui vai ser uma classe concreta com os atributos identidade, altura e peso
-    @Id //marca o campo como a chave principal
+    @Id //marca o campo como a chave principal ou seja é um identificador unico pra cada usuario
     @GeneratedValue(strategy = GenerationType.IDENTITY)//Gera o ID automaticamente
 
     private Long id;       //usando long por convenção e que por que será gerada automaticamnete
@@ -23,7 +23,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)    //Faz isso pra cada metodo que o usuario deve ter na aplicação
     private NivelAtividade nivelAtividade;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //Usando .STRING em todos por que quero salvar esses dados no banco como texto
     private Objetivo objetivo;
     @Enumerated(EnumType.STRING)
     private Biotipo biotipo;
