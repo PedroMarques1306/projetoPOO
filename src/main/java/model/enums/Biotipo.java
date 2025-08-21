@@ -17,7 +17,7 @@ public enum Biotipo {
 
     // construtor
     // Esse construtor é chamado para cada constante da lista.
-    // Exemplo SEDENTARIO("Sedentário", 1.2) chama o construtor com esses valores.
+
     Biotipo(String descricao, double multiplicadorCarbo, double multiplicadorGordura, double multiplicadorProteina) {
         this.descricao = descricao;
         this.multiplicadorCarbo = multiplicadorCarbo;

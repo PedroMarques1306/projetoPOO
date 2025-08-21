@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Dieta - Projeto POO</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+        #result { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background-color: #f9f9f9; }
+        .disclaimer { color: red; font-size: 0.9em; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Plano Alimentar</h1>
+    <p class="disclaimer"><strong>Atenção:</strong> Este sistema é para fins educacionais e não substitui o acompanhamento de um profissional de saúde.</p>
+    
+    <form id="dietForm">
+        <div class="form-group">
+            <label for="anos">Idade:</label>
+            <input type="number" id="anos" required>
+        </div>
+        <div class="form-group">
+            <label for="genero">Sexo:</label>
+            <select id="genero" required>
+                <option value="MASCULINO">Masculino</option>
+                <option value="FEMININO">Feminino</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="peso">Peso (kg):</label>
+            <input type="number" id="peso" step="0.1" required>
+        </div>
+        <div class="form-group">
+            <label for="altura">Altura (cm):</label>
+            <input type="number" id="altura" required>
+        </div>
+        <div class="form-group">
+            <label for="nivelAtividade">Nível de Atividade:</label>
+            <select id="nivelAtividade" required>
+                <option value="SEDENTARIO">Sedentário</option>
+                <option value="LEVEMENTE_ATIVO">Levemente Ativo</option>
+                <option value="MODERADAMENTE_ATIVO">Moderadamente Ativo</option>
+                <option value="MUITO_ATIVO">Muito Ativo</option>
+                <option value="EXTREMAMENTE_ATIVO">Extremamente Ativo</option>
+            </select>
+        </div>
+         <div class="form-group">
+            <label for="objetivo">Objetivo:</label>
+            <select id="objetivo" required>
+                <option value = "Ganhar Peso">Ganhar Peso</option>
+                <option value = "Perder Peso">Perder Peso</option>
+                <option value = "Manter Peso">Manter Peso</option>
+                </select>
+        </div>
+        <button type="submit">Gerar Plano</button>
+    </form>
+
+    <div id="result" style="display:none;">
+        <h2>Plano Sugerido</h2>
+        <p><strong>Calorias Totais:</strong> <span id="calorias"></span> kcal</p>
+        <ul>
+            <li>Proteínas: <span id="proteinas"></span> g</li>
+            <li>Carboidratos: <span id="carboidratos"></span> g</li>
+            <li>Gorduras: <span id="gorduras"></span> g</li>
+        </ul>
+    </div>
+
+    <script>
+        // O código para chamar a API virá aqui, mas só depois que o backend estiver pronto.
+    </script>
+</body>
+</html>
