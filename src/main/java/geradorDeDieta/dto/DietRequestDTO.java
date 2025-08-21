@@ -1,7 +1,7 @@
 //vai servir para receber os dados do usuario quando ele solicitar um plano de dieta
 //faz a comunicacao
 
-package dto; //serve para a comunicao com a API/usuario
+package geradorDeDieta.dto; //serve para a comunicao com a API/usuario
 
 //importo de todos os models
 import model.enums.Biotipo;

@@ -1,7 +1,7 @@
 //vai ser utiliuzado para mandar a dieta CALCULADA de volta para o usuario
 
 
-package dto; //criado para lidar com a entrada e saida de dados do usuario
+package geradorDeDieta.dto; //criado para lidar com a entrada e saida de dados do usuario
 
 public class DietPlanDTO {
     private double caloriasTotais;
