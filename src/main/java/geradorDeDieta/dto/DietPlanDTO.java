@@ -9,11 +9,14 @@ public class DietPlanDTO {
     private double proteinasGramas;
     private double gordurasGramas;
 
+    public DietPlanDTO(){
+        
+    }
 
     //CONSTRUTOR
-    public DietPlanDTO(double caloriasTotais, double caboidratoGramas, double proteinasGramas   , double gordurasgramas) {
+    public DietPlanDTO(double caloriasTotais, double carboidratoGramas, double proteinasGramas   , double gordurasgramas) {
         this.caloriasTotais = caloriasTotais;
-        this.carboidratoGramas = caboidratoGramas;
+        this.carboidratoGramas = carboidratoGramas;
         this.proteinasGramas = proteinasGramas;
         this.gordurasGramas = gordurasgramas;
     }

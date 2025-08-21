@@ -7,10 +7,14 @@ import repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class DietService{
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final Map<String,DietStrategy> dietStrategies;
+    
     
 
     public DietPlanDTO generateDietPlan(DietRequestDTO requestDTO){
@@ -33,7 +37,7 @@ public class DietService{
 
 
         //calculo dos macros
-            
+
         DietPlanDTO planoFinal = new DietPlanDTO();
         planoFinal.setCaloriasTotais(caloriasAlvo);
         planoFinal.setProteinasGramas(proteinasAlvo);
