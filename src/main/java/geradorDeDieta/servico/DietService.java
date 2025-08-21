@@ -14,7 +14,7 @@ public class DietService{
     @Autowired
     private final UsuarioRepository usuarioRepository;
     private final Map<String,DietStrategy> dietStrategies;
-    
+
     
 
     public DietPlanDTO generateDietPlan(DietRequestDTO requestDTO){
@@ -29,11 +29,13 @@ public class DietService{
         usuario.setNivelAtividade(requestDTO.getNivelAtividade());
         usuario.setObjetivo(requestDTO.getObjetivo());
 
-        //Agora fazer os calculos base (estamos usando o metodo cientifico de uns carinhas aí que depois eu coloco nome aqui :) )
+        //Agora fazer os calculos base (estamos usando o metodo cientifico de uns carinhas aí que depois eu coloco nome aqui :) )   
+        //tmb taxa metabolica basal a formula é de Mifflin St Jewor
+        //tdee Total daily energi expenditure ou seja o gasto diario
         double tmb = calculartmb(usuario);
         double tdee = tmb *usuario.getNivelAtividade().getMultiplier();
 
-        //aplicar o padrão strategy aqui
+        //aplicar o objetivo aqui
 
 
         //calculo dos macros
