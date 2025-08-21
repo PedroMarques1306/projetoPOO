@@ -1,13 +1,13 @@
 package model;
 
-public class DadosPessoais {
+public class Usuario {
     //aqui vai ser uma classe concreta com os atributos identidade, altura e peso
     private String id;
     private double altura;
     private double peso;
 
     //criando o construtor
-    public DadosPessoais(String id, double altura, double peso){
+    public Usuario(String id, double altura, double peso){
         this.id = id;
         this.altura = altura;
         this.peso = peso;
