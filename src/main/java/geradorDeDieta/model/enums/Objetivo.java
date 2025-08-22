@@ -1,4 +1,4 @@
-package model.enums;
+package geradorDeDieta.model.enums;
 
 public enum Objetivo{
 

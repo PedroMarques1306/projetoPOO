@@ -3,11 +3,9 @@ package geradorDeDieta.servico;
 import geradorDeDieta.dto.DietRequestDTO;
 import geradorDeDieta.dto.DietPlanDTO;
 import geradorDeDieta.servico.estrategia.*;
-import model.Usuario;
-import model.enums.Genero;
-import model.enums.Objetivo;
-import repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import geradorDeDieta.model.Usuario;
+import geradorDeDieta.model.enums.Genero;
+import geradorDeDieta.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

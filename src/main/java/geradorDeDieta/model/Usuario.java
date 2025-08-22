@@ -1,8 +1,9 @@
-package model;
+package geradorDeDieta.model;
 
+import geradorDeDieta.model.enums.*;
 import jakarta.persistence.*;   //JPA importado para lidar com o banco de dados
 import lombok.Data;             //esse lombok é usado pra fazer os metodos get e sets(AÇUCAR SINTATICO QUE É QUASE UM HACK SINTATICO)
-import model.enums.*;
+
 
 @Entity //tranforma a classe numa entidade JPA ou seja, a classe passa a representar uma tabela de banco de dados
 @Table(name = "usuarios") //pra organizar 

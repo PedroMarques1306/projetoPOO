@@ -1,4 +1,4 @@
-package model.enums;
+package geradorDeDieta.model.enums;
 
 /*Pesquisando achei esse tipo 'enum' que é um enumerador que é melhor para o tipo de projeto que estamos querendo criar já que a parte de sexo,
 nivel de atividade e objetivo serão como constantes*/

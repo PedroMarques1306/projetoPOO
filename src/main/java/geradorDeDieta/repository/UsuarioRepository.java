@@ -1,7 +1,7 @@
-package repository;
+package geradorDeDieta.repository;
 //importo o pacote repository
 
-import model.Usuario; //importo a classe usuario, o repositorio vaio gerenciar objetos de la
+import geradorDeDieta.model.Usuario; //importo a classe usuario, o repositorio vaio gerenciar objetos de la
 import org.springframework.data.jpa.repository.JpaRepository;  //importa a interface JPa repository, fornce metodos prontos como fazer o CRUD
 import org.springframework.stereotype.Repository; //marca a interface como um componente repostorio de spring, assim o spring pode gerenciar e injetar em outras classes
 

@@ -4,11 +4,11 @@
 package geradorDeDieta.dto; //serve para a comunicao com a API/usuario
 
 //importo de todos os models
-import model.enums.Biotipo;
-import model.enums.EstadoAtual;
-import model.enums.Genero;
-import model.enums.NivelAtividade;
-import model.enums.Objetivo;
+import geradorDeDieta.model.enums.Biotipo;
+import geradorDeDieta.model.enums.EstadoAtual;
+import geradorDeDieta.model.enums.Genero;
+import geradorDeDieta.model.enums.NivelAtividade;
+import geradorDeDieta.model.enums.Objetivo;
 
 public class DietRequestDTO {
 
