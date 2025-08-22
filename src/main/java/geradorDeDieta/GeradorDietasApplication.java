@@ -3,7 +3,7 @@ package geradorDeDieta;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// Esta anotação mágica transforma a classe na principal da sua aplicação Spring
+// Esta  transforma a classe na principal da sua aplicação Spring
 @SpringBootApplication
 public class GeradorDietasApplication {
 

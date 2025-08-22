@@ -115,7 +115,7 @@
 </head>
 <body>
 <div class="diet-container">
-    <h1>Gerador de Plano Alimentar</h1>
+    <h1>Calculadora Alimentar</h1>
     <p class="disclaimer"><strong>Atenção:</strong> Este sistema é para fins educacionais e não substitui o acompanhamento de um profissional de saúde.</p>
 
     <form id="dietForm">
@@ -141,11 +141,11 @@
         <div class="form-group">
             <label for="nivelAtividade">Nível de Atividade:</label>
             <select id="nivelAtividade" required>
-                <option value="SEDENTARIO">Sedentário</option>
-                <option value="LEVEMENTE_ATIVO">Levemente Ativo</option>
-                <option value="MODERADAMENTE_ATIVO">Moderadamente Ativo</option>
-                <option value="MUITO_ATIVO">Muito Ativo</option>
-                <option value="EXTREMAMENTE_ATIVO">Extremamente Ativo</option>
+                <option value="SEDENTARIO">Sedentário(Pouco ou nenhum exercício)</option>
+                <option value="LEVEMENTE_ATIVO">Levemente Ativo(Exercicio leve 1-3x na semana)</option>
+                <option value="MODERADAMENTE_ATIVO">Moderadamente Ativo(Exercicio moderado 3-5x na semana)</option>
+                <option value="MUITO_ATIVO">Muito Ativo(Exercicio pesado 6-7x na semana)</option>
+                <option value="EXTREMAMENTE_ATIVO">Extremamente Ativo(Exercicio muito pesado ou trabalho fisico)</option>
             </select>
         </div>
         <div class="form-group">
@@ -173,7 +173,16 @@
             </select>
         </div>
 
-        <button type="submit">Gerar Plano</button>
+            <button type="submit">Gerar Plano</button>
+
+        <button id="historyBtn" type="button" style="background: #444; margin-top: 10px;">Ver Histórico</button>
+
+        <div id="history" style="display:none; margin-top: 20px;">
+            <h2>Histórico de Cálculos</h2>
+            <ul id="historyList" style="list-style: none; padding: 0;">
+            </ul>
+    </div>
+</div>
     </form>
 
     <div id="result" style="display:none;">
@@ -188,6 +197,43 @@
 </div>
 
 <script>
+    document.getElementById('historyBtn').addEventListener('click', function() {
+        fetch('/api/diets/history') // Faz a chamada para o novo endpoint GET
+            .then(response => response.json())
+            .then(data => {
+                const historyList = document.getElementById('historyList');
+                historyList.innerHTML = ''; // Limpa a lista antes de preencher
+
+                if (data.length === 0) {
+                    historyList.innerHTML = '<li style="text-align: center; opacity: 0.7;">Nenhum histórico encontrado.</li>';
+                } else {
+                    data.forEach(item => {
+                        // Para cada item no histórico, cria um elemento <li>
+                        const listItem = document.createElement('li');
+                        listItem.style.background = '#2c2c2c';
+                        listItem.style.padding = '15px';
+                        listItem.style.borderRadius = '8px';
+                        listItem.style.marginBottom = '10px';
+                        
+                        // Recalcula o plano para exibir (o ideal seria salvar o resultado, mas isso funciona)
+                        // Esta parte é uma simplificação. O ideal seria salvar o resultado junto com a entrada.
+                        // Mas para o projeto, salvar e buscar a entrada já cumpre o requisito.
+                        listItem.innerHTML = `
+                            <strong>Entrada:</strong> Sexo ${item.genero}, ${item.anos} anos, ${item.peso}kg, ${item.altura}cm. <br>
+                            <strong>Objetivo:</strong> ${item.objetivo}.
+                        `;
+                        historyList.appendChild(listItem);
+                    });
+                }
+                
+                document.getElementById('history').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Erro ao buscar histórico:', error);
+                alert('Não foi possível carregar o histórico.');
+            });
+    });
+
     // Adiciona um "ouvinte" para o evento de submissão do formulário
     document.getElementById('dietForm').addEventListener('submit', function(event) {
         // Previne o comportamento padrão do formulário (que recarregaria a página)

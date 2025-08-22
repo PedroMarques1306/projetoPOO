@@ -8,6 +8,7 @@ import geradorDeDieta.model.enums.Genero;
 import geradorDeDieta.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -35,10 +36,14 @@ public class DietService{
         usuario.setNivelAtividade(requestDTO.getNivelAtividade());
         usuario.setObjetivo(requestDTO.getObjetivo());
 
+        usuario.setObjetivo(requestDTO.getObjetivo());
+        Usuario usuariosalvo = usuarioRepository.save(usuario);
+
         //Agora fazer os calculos base (estamos usando o metodo cientifico de uns carinhas aí que depois eu coloco nome aqui :) )   
         //tmb taxa metabolica basal a formula é de Mifflin St Jewor
-        //tdee Total daily energi expenditure ou seja o gasto diario
-        double tmb = calculartmb(usuario);
+        //tdee Total daily energy expenditure ou seja o gasto diario
+        //double tmb = calculartmb(usuario);
+        double tmb = calculartmb(usuariosalvo);
         double tdee = tmb *usuario.getNivelAtividade().getMultiplier(); //nivel de atividade influencia no tdee
 
         DietStrategy strategy = dietStrategies.get(usuario.getObjetivo().name());
@@ -46,19 +51,6 @@ public class DietService{
         throw new IllegalArgumentException("Objetivo não suportado");
         }
         int caloriasAlvo = strategy.calcularObjetivoCalorico(tdee);
-        //ajustar as calorias com base no objetivo
-        /*double caloriasAlvo;
-        if(usuario.getObjetivo()== Objetivo.GANHARMASSA){
-            caloriasAlvo = tdee +300; //superavit calorico
-        }
-        else if(usuario.getObjetivo()==Objetivo.PERDERPESO){
-            caloriasAlvo = tdee -500; //deficit calorico
-        }
-        else {
-            caloriasAlvo = tdee; //manetenho o tdee
-        }
-        If e else do jeito que tava aqui não condizia com o padrão strategy :( */
-        //calcular os macronutrientes em gramas e em calorasi
 
         //Proteina, usando 2g/kg como base.
         double proteinasGramas = usuario.getPeso() *2;
@@ -94,6 +86,9 @@ public class DietService{
         planoFinal.setGordurasGramas(gordurasTotais);
 
         return planoFinal;
+    }
+    public List<Usuario> getHistory(){
+        return usuarioRepository.findAll();
     }
 
     private double calculartmb(Usuario usuario){
