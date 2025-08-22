@@ -10,7 +10,7 @@ public class DietPlanDTO {
     private double gordurasGramas;
 
     public DietPlanDTO(){
-        
+
     }
 
     //CONSTRUTOR
@@ -27,7 +27,7 @@ public class DietPlanDTO {
     }
 
 
-    public double getCaboidratoGramas() {
+    public double getCarboidratoGramas() {
         return carboidratoGramas;
     }
 
@@ -47,7 +47,7 @@ public class DietPlanDTO {
     }
 
 
-    public void setCaboidratoGramas(double caboidratoGramas) {
+    public void setCarboidratoGramas(double caboidratoGramas) {
         this.carboidratoGramas = caboidratoGramas;
     }
 
