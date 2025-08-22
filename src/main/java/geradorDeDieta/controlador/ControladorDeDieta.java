@@ -2,7 +2,6 @@ package geradorDeDieta.controlador;
 import geradorDeDieta.dto.DietRequestDTO;
 import geradorDeDieta.dto.DietPlanDTO;
 import geradorDeDieta.servico.DietService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 //Aqui é pra ser o controlador de dietas pra conectar a API ao projeto
