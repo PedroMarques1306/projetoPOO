@@ -3,6 +3,8 @@ package geradorDeDieta.servico;
 import geradorDeDieta.dto.DietRequestDTO;
 import geradorDeDieta.dto.DietPlanDTO;
 import model.Usuario;
+import model.enums.Genero;
+import model.enums.Objetivo;
 import repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +13,10 @@ import java.util.Map;
 
 @Service
 public class DietService{
-    @Autowired
-    private final UsuarioRepository usuarioRepository;
-    private final Map<String,DietStrategy> dietStrategies;
+    //por enquanto nao necessario
+    /*@Autowired
+    private  UsuarioRepository usuarioRepository;
+    private  Map<String,DietStrategy> dietStrategies;*/
 
     
 
@@ -33,25 +36,71 @@ public class DietService{
         //tmb taxa metabolica basal a formula é de Mifflin St Jewor
         //tdee Total daily energi expenditure ou seja o gasto diario
         double tmb = calculartmb(usuario);
-        double tdee = tmb *usuario.getNivelAtividade().getMultiplier();
+        double tdee = tmb *usuario.getNivelAtividade().getMultiplier(); //nivel de atividade influencia no tdee
 
         //aplicar o objetivo aqui
+
+        //ajustar as calorias com base no objetivo
+        double caloriasAlvo;
+        if(usuario.getObjetivo()== Objetivo.GANHARMASSA){
+            caloriasAlvo = tdee +300; //superavit calorico
+        }
+        else if(usuario.getObjetivo()==Objetivo.PERDERPESO){
+            caloriasAlvo = tdee -500; //deficit calorico
+        }
+        else {
+            caloriasAlvo = tdee; //manetenho o tdee
+        }
+
+        //calcular os macronutrientes em gramas e em calorasi
+
+        //Proteina, usando 2g/kg como base.
+        double proteinasGramas = usuario.getPeso() *2;
+
+        //gorduras, usando 25% das calorias totais
+        double gorduraCalorias = caloriasAlvo * 0.25;
+        double gorduraGramas = gorduraCalorias / 9; //1g de gordura = 9kcal
+
+        //carboidratos, o restante das calorias
+        double proteinasCalorias = proteinasGramas *4; //1g / 4kcal
+        double carboidratoCalorias = caloriasAlvo - proteinasCalorias -  gorduraCalorias;
+        double carboidratoGramas = carboidratoCalorias / 4; //1g = 4kcal
+
+
+        //Aplicando os MULTIPLICADORES de biotipo e estado atual
+        double multiplicadoresProteina = usuario.getBiotipo().getMultiProteina() * usuario.getEstadoAtual().getMultiplicadorProteina();
+        double multiplicadoresGorduras = usuario.getBiotipo().getMultiGordura() * usuario.getEstadoAtual().getMultiplicadorGordura();
+        double multiplicadoresCarboidratos = usuario.getBiotipo().getMultiCarbo() * usuario.getEstadoAtual().getMultiplicadorCarboidrato();
+
+        //novas variaveis totais
+        double proteinasTotais = proteinasGramas * multiplicadoresProteina;
+        double gordurasTotais = gorduraGramas * multiplicadoresGorduras;
+        double carboidratosTotais =  carboidratoGramas * multiplicadoresCarboidratos;
+
 
 
         //calculo dos macros
 
         DietPlanDTO planoFinal = new DietPlanDTO();
         planoFinal.setCaloriasTotais(caloriasAlvo);
-        planoFinal.setProteinasGramas(proteinasAlvo);
-        planoFinal.setCaboidratoGramas(carboidratosAlvo);
-        planoFinal.setGordurasGramas(gorduraAlvo);
+        planoFinal.setProteinasGramas(proteinasTotais);
+        planoFinal.setCaboidratoGramas(carboidratosTotais);
+        planoFinal.setGordurasGramas(gordurasTotais);
 
         return planoFinal;
     }
 
     private double calculartmb(Usuario usuario){
-        //Preciso ver como fazer a logica do tmb depois
-        return 0; 
+        //Formula para Homens: (10 * peso em kg) + (6.25 * altura em cm) + (5 * idade em anos) +5
+        //Formula para Mulheres: (10* peso em kg) + (6.25 * altura em cm) - (5 * idade em anos) - 161
+        if(usuario.getGenero()== Genero.MASCULINO){
+            return (10*usuario.getPeso()) + (6.25*usuario.getAltura()) + (5* usuario.getAnos()) + 5;//DAR A ALTURA EM CM
+        }
+        else{
+            return (10*usuario.getPeso()) + (6.25*usuario.getAltura()) - (5* usuario.getAnos()) - 161;
+        }
+
+
     }
 
 
