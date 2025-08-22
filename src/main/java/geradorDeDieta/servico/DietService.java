@@ -2,6 +2,7 @@ package geradorDeDieta.servico;
 
 import geradorDeDieta.dto.DietRequestDTO;
 import geradorDeDieta.dto.DietPlanDTO;
+import geradorDeDieta.servico.estrategia.*;
 import model.Usuario;
 import model.enums.Genero;
 import model.enums.Objetivo;
@@ -13,11 +14,15 @@ import java.util.Map;
 
 @Service
 public class DietService{
-    //por enquanto nao necessario
-    /*@Autowired
+    
+    
     private  UsuarioRepository usuarioRepository;
-    private  Map<String,DietStrategy> dietStrategies;*/
+    private  Map<String,DietStrategy> dietStrategies;
 
+    public DietService(UsuarioRepository usuarioRepository, Map<String, DietStrategy> dietStrategies){
+        this.usuarioRepository = usuarioRepository;
+        this.dietStrategies = dietStrategies;
+    }
     
 
     public DietPlanDTO generateDietPlan(DietRequestDTO requestDTO){
@@ -38,10 +43,13 @@ public class DietService{
         double tmb = calculartmb(usuario);
         double tdee = tmb *usuario.getNivelAtividade().getMultiplier(); //nivel de atividade influencia no tdee
 
-        //aplicar o objetivo aqui
-
+        DietStrategy strategy = dietStrategies.get(usuario.getObjetivo().name());
+        if (strategy == null) {
+        throw new IllegalArgumentException("Objetivo não suportado");
+        }
+        int caloriasAlvo = strategy.calcularObjetivoCalorico(tdee);
         //ajustar as calorias com base no objetivo
-        double caloriasAlvo;
+        /*double caloriasAlvo;
         if(usuario.getObjetivo()== Objetivo.GANHARMASSA){
             caloriasAlvo = tdee +300; //superavit calorico
         }
@@ -51,7 +59,7 @@ public class DietService{
         else {
             caloriasAlvo = tdee; //manetenho o tdee
         }
-
+        If e else do jeito que tava aqui não condizia com o padrão strategy :( */
         //calcular os macronutrientes em gramas e em calorasi
 
         //Proteina, usando 2g/kg como base.
@@ -91,10 +99,10 @@ public class DietService{
     }
 
     private double calculartmb(Usuario usuario){
-        //Formula para Homens: (10 * peso em kg) + (6.25 * altura em cm) + (5 * idade em anos) +5
+        //Formula para Homens: (10 * peso em kg) + (6.25 * altura em cm) - (5 * idade em anos) +5
         //Formula para Mulheres: (10* peso em kg) + (6.25 * altura em cm) - (5 * idade em anos) - 161
         if(usuario.getGenero()== Genero.MASCULINO){
-            return (10*usuario.getPeso()) + (6.25*usuario.getAltura()) + (5* usuario.getAnos()) + 5;//DAR A ALTURA EM CM
+            return (10*usuario.getPeso()) + (6.25*usuario.getAltura()) - (5* usuario.getAnos()) + 5;//DAR A ALTURA EM CM
         }
         else{
             return (10*usuario.getPeso()) + (6.25*usuario.getAltura()) - (5* usuario.getAnos()) - 161;
