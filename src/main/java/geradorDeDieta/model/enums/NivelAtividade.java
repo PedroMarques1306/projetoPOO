@@ -12,7 +12,7 @@ public enum NivelAtividade{
     LEVEMENTE_ATIVO("Levemente Ativo", 1.375),
     MODERADAMENTE_ATIVO("Moderadamente Ativo", 1.55), 
     MUITO_ATIVO("Muito Ativo", 1.725),           
-    EXTREM_ATIVO("Extremamente Ativo", 1.9);
+    EXTREMAMENTE_ATIVO("Extremamente Ativo", 1.9);
 
     // ATRIBUTOS PARA CADA CONSTANTE
     // Cada constante da lista acima terá esses dois atributos.

@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController //'tranformando' a classe em um controlador API REST Pra garantir que DietPlanDTO vire json pra o futuro front-
 @RequestMapping("/api/diets") //pelas minhas pesquisas, isso aqui é necessario para poder separar as URL's
 public class ControladorDeDieta {
-    @Autowired //Usando o Spring para encontrar a instacia do DietService e disponibilizar neste objeto
-    private DietService dietservice;
+    private final DietService dietservice;
+
+    public ControladorDeDieta(DietService dietservice) {
+        this.dietservice = dietservice;
+    }
 
     @PostMapping("/generate") //conecta a classe a url 
     //Aqui embaixo é a assinatura do metodo, é um objeto Spring que representa a resposta HTTP

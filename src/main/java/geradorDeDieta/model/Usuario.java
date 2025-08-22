@@ -30,12 +30,13 @@ public class Usuario {
     private Biotipo biotipo;
     @Enumerated(EnumType.STRING)
     private EstadoAtual estadoAtual;
-    public void setAltura(double altura){
+   /*  public void setAltura(double altura){
         if(altura<130 || altura > 240){
             throw new IllegalArgumentException("Altura invalida baixo ou alto demais");
         }
         this.altura = altura;
     }
+        */
     /*Pro motivos de não ter certeza se vai funcionar como a gente quer  
     //criando o construtor
     public Usuario(String id, double altura, double peso){
