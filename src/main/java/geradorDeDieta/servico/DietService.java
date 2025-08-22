@@ -90,7 +90,7 @@ public class DietService{
         DietPlanDTO planoFinal = new DietPlanDTO();
         planoFinal.setCaloriasTotais(caloriasAlvo);
         planoFinal.setProteinasGramas(proteinasTotais);
-        planoFinal.setCaboidratoGramas(carboidratosTotais);
+        planoFinal.setCarboidratoGramas(carboidratosTotais);
         planoFinal.setGordurasGramas(gordurasTotais);
 
         return planoFinal;
