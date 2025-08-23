@@ -33,6 +33,7 @@ build/
 
 ### VS Code ###
 .vscode/
-
+dietplanner.trace.db
+dietplanner.mv.db
 ### Mac OS ###
 .DS_Store
