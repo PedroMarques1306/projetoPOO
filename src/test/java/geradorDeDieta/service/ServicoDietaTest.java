@@ -38,7 +38,8 @@ public class ServicoDietaTest {
     @InjectMocks
     private DietService dietService;//cria um ainstancia da classe que queremos utilizar, ja tenta injetar automaticamente os mocks na instancia
 
-    @BeforeEach //prepara o ambiente, marca um metodo que dev ser executado antes de cada teste na classe
+    @BeforeEach
+        //prepara o ambiente, marca um metodo que dev ser executado antes de cada teste na classe
     void setUp() {
         // Configuração manual das strategies para o teste
         Map<String, DietStrategy> strategies = new HashMap<>();
@@ -48,7 +49,7 @@ public class ServicoDietaTest {
         dietService = new DietService(usuarioRepository, strategies);
     }
 
-    @Test //marca um metodo como um caso de teste que dev ser executado
+    @Test
     void deveGerarPlanoDeDietaParaGanhoDeMassa() {
         // 1. Cenário (Given)
         DietRequestDTO request = new DietRequestDTO();
@@ -73,28 +74,30 @@ public class ServicoDietaTest {
         usuarioSalvo.setEstadoAtual(request.getEstadoAtual());
 
         // Simula o comportamento do repositório
-        //permite definir o comportamento de um mock
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioSalvo);
-        //quando o metodo save do repositorio falso for chamado, finja que funcionou e retorno o objeto
 
         // 2. Ação (When)
         DietPlanDTO plano = dietService.generateDietPlan(request);
 
         // 3. Verificação (Then)
         assertThat(plano).isNotNull();
-        // TMB = (10 * 70) + (6.25 * 175) - (5 * 25) + 5 = 700 + 1093.75 - 125 + 5 = 1673.75
-        // TDEE = 1673.75 * 1.55 = 2594.31
+
+        // --- Cálculos Esperados (espelhando a lógica do DietService) ---
+        // TMB = (10 * 70) + (6.25 * 175) - (5 * 25) + 5 = 1673.75
+        // TDEE = 1673.75 * 1.55 (Moderadamente Ativo) = 2594.31
         // Calorias Alvo = 2594.31 + 300 (Bulking) = 2894.31
         assertThat(plano.getCaloriasTotais()).isEqualTo(2894);
 
-        // Proteínas = 70 * 2 * 1.05 (meso) * 1.0 (magro) = 147g
-        //assert that vem do org.assertj.core.api.Assertions
+        // Proteínas Base = 70kg * 2 = 140g
+        // Proteínas Totais = 140g * 1.05 (Mesomorfo) * 1.0 (Magro) = 147g
         assertThat(plano.getProteinasGramas()).isCloseTo(147.0, org.assertj.core.data.Offset.offset(0.1));
 
-        // Gorduras = (2894 * 0.25) / 9 * 1.05 (meso) * 1.0 (magro) = 84.4g
+        // Gorduras Base = (2894 * 0.25) / 9 = 80.38g
+        // Gorduras Totais = 80.38g * 1.05 (Mesomorfo) * 1.0 (Magro) = 84.4g
         assertThat(plano.getGordurasGramas()).isCloseTo(84.4, org.assertj.core.data.Offset.offset(0.1));
 
-        // Carboidratos = (2894 - (147*4) - (84.4*9)) / 4 * 1.05 (meso) * 1.15 (magro) = 384.3g
-        assertThat(plano.getCarboidratoGramas()).isCloseTo(384.3, org.assertj.core.data.Offset.offset(0.1));
+        // Carboidratos Base = (2894 - (140g * 4) - (80.38g * 9)) / 4 = 402.625g
+        // Carboidratos Totais = 402.625g * 1.05 (Mesomorfo) * 1.15 (Magro) = 486.17g
+        assertThat(plano.getCarboidratoGramas()).isCloseTo(486.17, org.assertj.core.data.Offset.offset(0.1));
     }
 }
