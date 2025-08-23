@@ -100,4 +100,3 @@ public class ServicoDietaTest {
         // Carboidratos Totais = 402.625g * 1.05 (Mesomorfo) * 1.15 (Magro) = 486.17g
         assertThat(plano.getCarboidratoGramas()).isCloseTo(486.17, org.assertj.core.data.Offset.offset(0.1));
     }
-}
